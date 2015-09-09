@@ -25,7 +25,7 @@ $(document).ready(function() {
 		            console.log('bad credentials.')
 		        }).
 		        done(function(data){
-		        	response = JSON.parse(response);
+		        	data = JSON.parse(data);
 		        	var items = [];
 		        	$.each( data, function( key, val ) {
 		        		items.push( "<li id="+val.pk +" >" +' <a href="#" data-clase-pk="' + val.pk + '" data-toggle="modal" data-target="#deleteModal">'+val.name+'</a>' + "</li>" );
@@ -328,7 +328,7 @@ $(document).ready(function() {
 		        	data = JSON.parse(data)
 		        	var items = [];
 		        	$.each( data, function( key, val ) {
-		        		items.push( "<li  >" +' <a href="#" data-clase-pk="' + val.pk + '" data-toggle="modal" data-target="#clase-password-modal">'+val.name+'</a>' + "</li>" );
+		        		items.push( "<li  >" +' <a href="#" class="class_to_view" data-clase-pk="' + val.pk + '">'+val.name+'</a>' + "</li>" );
 		        		$( "#classes_list" ).html(items.join( "" ));
 		        	  });
 		        	if(items.length == 0){
@@ -345,24 +345,15 @@ $(document).ready(function() {
 	
 
 
-	$('#clase-password-modal').on('show.bs.modal', function(e) {
-		  var clase_selected = e.relatedTarget.dataset.clasePk;
-		  localStorage.setItem("selected_clase", parseInt(clase_selected));
-		});
 	
-	$(".content #clase-password-modal .modal-content .modal-footer .close-btn").click(function(){
-		
-		$( "#error_clase_password" ).html("");
-		 $('#clase_password').val("");
-	});
 	
 	var teacher_selection_modify= null;
 	
-	$(".content #clase-password-modal .modal-content .modal-footer .enter-pass").click(function(){
-
+	$("#classes_list").on('click', '.class_to_view', function(e){
+		
 		var password = $('#clase_password').val();
 		$( "#error_clase_password" ).html("");
-		var pk = localStorage.getItem("selected_clase");
+		var pk = this.dataset.clasePk
 		$.ajax({type: "POST",  url: checkClassPassword, data: { password: password, pk:pk } }).
         fail(function(resp){
             console.log('Bad password')

@@ -160,10 +160,11 @@ intro.start();
 			 $('.content .welcome-notice ').css('opacity','1');
 			 $('#class').removeClass('active');
 			 $('.content ul.print-button ').css('display','none');
-			 $('#submenu').css('display','none');
+			 $('#submenu').css('display','block');
 			 $('#selected_dashboard_school').css('display','none');
-			 $('#menu_items').css('display','none');
+			 $('#menu_items').css('display','block');
 			 $(".welcome-notice-outer").show();
+			 location.reload();
 	    })
 	    
 		
