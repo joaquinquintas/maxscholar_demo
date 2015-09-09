@@ -84,33 +84,31 @@ $(document).ready(function() {
 		$('#createclass .message').css('display', 'block');
 		$('.modify-classes-tab-title').css('display', 'none');
 		$('.content .create-class-detail .all-member-detail .choose-member').css('display', 'block');
-		school_pk = localStorage.getItem("school_pk");
-		toSend = {school_id:school_pk};
 		
-		$.ajax({type: "GET",  url: getAdminsFromSchool, data:toSend} ).done(function(response){
-    		
+		$.ajax({type: "GET",  url: getAdminsFromSchool} ).done(function(response){
+			response = JSON.parse(response);
+			console.log(response);
     		teacher_selection_modify = $('#magicsuggest_create').magicSuggest({
         		allowFreeEntries:false,
-        		data: JSON.parse(response),
+        		data: response,
         		valueField: 'pk',
-                displayField: 'name',
+                displayField: 'full_name',
                 placeholder: 'Type Here',
             });
     		
     	});
 		
-		school_pk = localStorage.getItem("school_pk");
 		$( "#clase_student_list_create" ).html("");
 		$( "#class_password_create" ).val("");
 		 $( "#class_repassword_create" ).val("");
 		 $( "#class_email_create" ).val("");
 		 $( "#class_name_create" ).val("");
 		 $("#search-student-create").val("");
-		toSend = {school_id:school_pk};
-		$.ajax({type: "GET",  url: getStudentList,data:toSend }).
+
+		$.ajax({type: "GET",  url: getStudentList}).
         
         done(function(resp){
-        	
+        	resp = JSON.parse(resp)
         	$('#createclass .message').css('display', 'none');
         	$('.create-class-detail').css('display', 'block');
         	//Use the clase response Obj
@@ -321,17 +319,13 @@ $(document).ready(function() {
 				$('.choose-class').css('display', 'block');
 				$('.modify-classes-tab-title').css('display', 'none');
 				
-
-				school_pk = localStorage.getItem("school_pk");
-				toSend = {school_id:school_pk};
 				
-				
-				$.ajax({type: "GET",  url: allClasses, data:toSend}).
+				$.ajax({type: "GET",  url: allClasses}).
 		        fail(function(resp){
 		            console.log('bad credentials.')
 		        }).
 		        done(function(data){
-		        	
+		        	data = JSON.parse(data)
 		        	var items = [];
 		        	$.each( data, function( key, val ) {
 		        		items.push( "<li  >" +' <a href="#" data-clase-pk="' + val.pk + '" data-toggle="modal" data-target="#clase-password-modal">'+val.name+'</a>' + "</li>" );
@@ -372,22 +366,20 @@ $(document).ready(function() {
 		$.ajax({type: "POST",  url: checkClassPassword, data: { password: password, pk:pk } }).
         fail(function(resp){
             console.log('Bad password')
-            console.log(resp.responseJSON.non_field_errors[0]);
-            $( "#error_clase_password" ).html(resp.responseJSON.non_field_errors[0]);
+            $( "#error_clase_password" ).html("Invalid Password");
             $( "#clase_password" ).select();
         }).
         done(function(resp){
+        	resp= JSON.parse(resp);
         	$('#clase-password-modal').modal('hide');
         	$( "#error_clase_password" ).html("");
-        	school_pk = localStorage.getItem("school_pk");
-    		toSend = {school_id:school_pk};
-        	$.ajax({type: "GET",  url: getAdminsFromSchool, data:toSend} ).done(function(response){
+        	$.ajax({type: "GET",  url: getAdminsFromSchool} ).done(function(response){
         		
         		teacher_selection_modify = $('#magicsuggest').magicSuggest({
             		allowFreeEntries:false,
             		data: JSON.parse(response),
             		valueField: 'pk',
-                    displayField: 'name',
+                    displayField: 'full_name',
                     placeholder: 'Type Here',
                 });
         		
@@ -448,7 +440,7 @@ $(document).ready(function() {
 		$.ajax({type: "GET",  url: getClassDetail+pk }).
         
         done(function(resp){
-        	
+        	resp = JSON.parse(resp);
         	//Use the clase response Obj
         	console.log(resp.pk);
         	$( "#class_name_modify" ).val(resp.name);
@@ -470,6 +462,7 @@ $(document).ready(function() {
         done(function(resp){
         	
         	//Use the clase response Obj
+        	resp = JSON.parse(resp);
         	var students = [];
         	$.each( resp, function( key, val ) {
         		students.push( "<li><a class='user-to-add' data-user-last-name="+ val.last_name +" data-user-first-name="+ val.first_name +" data-user-pk="+val.pk+" href='#'>"+ val.first_name +' '+ val.last_name+'</a></li>' );

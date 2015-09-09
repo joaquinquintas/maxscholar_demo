@@ -60,31 +60,31 @@ $(document).ready(function() {
 	});
 
 $.ajax({type: "GET",  url: getUserType}).
-done(function(resp){
+	done(function(resp){
 
-$("#type-edit-user").html("");
-$("#type-create-user").html("");
-var o = new Option("Select Type" , "no");
-o.setAttribute("id", "no");
-$("#type-edit-user").append(o);
-var o = new Option("Select Type" , "no");
-o.setAttribute("id", "no");
-o.setAttribute("selected", "selected");
-$("#type-create-user").append(o);
-
-$.each(resp, function (i, item) {
-	var op = new Option(item.name , item.pk);
-	/// jquerify the DOM object 'o' so we can use the html method
-	$(op).html(item.name);
-
-	
-	$("#type-edit-user").append(op);
-	var op = new Option(item.name , item.pk);
-	/// jquerify the DOM object 'o' so we can use the html method
-	$(op).html(item.name);
-	$("#type-create-user").append(op);
-	
-});
+		$("#type-edit-user").html("");
+		$("#type-create-user").html("");
+		var o = new Option("Select Type" , "no");
+		o.setAttribute("id", "no");
+		$("#type-edit-user").append(o);
+		var o = new Option("Select Type" , "no");
+		o.setAttribute("id", "no");
+		o.setAttribute("selected", "selected");
+		$("#type-create-user").append(o);
+		
+		$.each(resp, function (i, item) {
+			var op = new Option(item.name , item.pk);
+			/// jquerify the DOM object 'o' so we can use the html method
+			$(op).html(item.name);
+		
+			
+			$("#type-edit-user").append(op);
+			var op = new Option(item.name , item.pk);
+			/// jquerify the DOM object 'o' so we can use the html method
+			$(op).html(item.name);
+			$("#type-create-user").append(op);
+		
+	});
 
 
 });
@@ -97,13 +97,13 @@ $.each(resp, function (i, item) {
 
 	
 $("#selected_dashboard_school").css('display','none');
-$(".welcome-notice h3").html("Welcome, Demo User!.");
+$(".welcome-notice h3").html("Welcome, Demo User!");
 var intro = introJs();
 intro.setOptions({
   steps: [
     {
       element: '#step1',
-      intro: "<b>Hello "+resp.user.first_name +"</b><span>Welcome to MaxReports!</span><span>Click <a href = '#' >here</a> to see a video tutorial of all the features available for you.</span>"
+      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span>Click <a href = '#' >here</a> to see a video tutorial of all the features available for you.</span>"
      } ,
 	   {
       element: '#step2',
