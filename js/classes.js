@@ -6,6 +6,7 @@ $(document).ready(function() {
 	
 	$('.classes-tab-title').click(function(){
 		$('.content .delete ').css('display','block');
+		//$('.delete-classes-tab-title').css('display', 'none');
 	});
 	
 	// DELETE CLASE ----------
@@ -18,15 +19,13 @@ $(document).ready(function() {
 				$( "#clases-to-delete" ).hide();
 				$('.content .print-button ').css('display','none');
 			
-				school_pk = localStorage.getItem("school_pk");
-				toSend = {school_id:school_pk};
-				
-				$.ajax({type: "GET",  url: allClasses, data:toSend}).
+
+				$.ajax({type: "GET",  url: allClasses}).
 		        fail(function(resp){
 		            console.log('bad credentials.')
 		        }).
 		        done(function(data){
-		        	
+		        	response = JSON.parse(response);
 		        	var items = [];
 		        	$.each( data, function( key, val ) {
 		        		items.push( "<li id="+val.pk +" >" +' <a href="#" data-clase-pk="' + val.pk + '" data-toggle="modal" data-target="#deleteModal">'+val.name+'</a>' + "</li>" );
@@ -83,6 +82,7 @@ $(document).ready(function() {
 		$('#createclass').css('display', 'block');
 		$('#createclass .message').css('display', 'block');
 		$('.modify-classes-tab-title').css('display', 'none');
+		//$('.delete-classes-tab-title').css('display', 'none');
 		$('.content .create-class-detail .all-member-detail .choose-member').css('display', 'block');
 		
 		$.ajax({type: "GET",  url: getAdminsFromSchool} ).done(function(response){
@@ -371,6 +371,7 @@ $(document).ready(function() {
         }).
         done(function(resp){
         	resp= JSON.parse(resp);
+        	$('.delete-classes-tab-title').css('display', 'block');
         	$('#clase-password-modal').modal('hide');
         	$( "#error_clase_password" ).html("");
         	$.ajax({type: "GET",  url: getAdminsFromSchool} ).done(function(response){
@@ -434,6 +435,7 @@ $(document).ready(function() {
 		$('.content .print-button ').css('display','none');
 		$("#modify .create-class-detail").hide();
 		$('#createclass').css('display', 'none');
+		$('.delete-classes-tab-title').css('display', 'block');
 		console.log("Modify Clases");
 		localStorage.setItem("user_to_add_modifiy_clase", JSON.stringify([]));
 		var pk = localStorage.getItem("selected_clase");

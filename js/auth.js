@@ -26,7 +26,10 @@ $(document).ready(function() {
 		  }
 		});
 
-	
+	$.ajax({type: "POST",  url: login}).
+    done(function(resp){
+    	//Set variables in the session for the demo user
+    	});
 
 	 
  	$.ajax({type: "GET",  url: getStudentLevels}).
@@ -103,7 +106,7 @@ intro.setOptions({
   steps: [
     {
       element: '#step1',
-      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span>Click <a href = '#' >here</a> to see a video tutorial of all the features available for you.</span>"
+      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span> This is a DEMO Session you can safely play with it, all the data you enter will be lost after you leave the page.</span>"
      } ,
 	   {
       element: '#step2',
@@ -148,17 +151,22 @@ intro.start();
 	$(".logout").click(function(e){
 		e.preventDefault();
 		//call log out function server
+		$.ajax({type: "POST", url: logout}).
+	    done(function(resp){
+	        console.log(' loggued out.')
+	        $('.reports-tab-title').removeClass('active');
+			 $('#reports').removeClass('active');
+			 $('.individual-title').removeClass('active');
+			 $('.content .welcome-notice ').css('opacity','1');
+			 $('#class').removeClass('active');
+			 $('.content ul.print-button ').css('display','none');
+			 $('#submenu').css('display','none');
+			 $('#selected_dashboard_school').css('display','none');
+			 $('#menu_items').css('display','none');
+			 $(".welcome-notice-outer").show();
+	    })
+	    
 		
-		$('.reports-tab-title').removeClass('active');
-		 $('#reports').removeClass('active');
-		 $('.individual-title').removeClass('active');
-		 $('.content .welcome-notice ').css('opacity','1');
-		 $('#class').removeClass('active');
-		 $('.content ul.print-button ').css('display','none');
-		 $('#submenu').css('display','none');
-		 $('#selected_dashboard_school').css('display','none');
-		 $('#menu_items').css('display','none');
-		 $(".welcome-notice-outer").show();
 		
 	});
 });

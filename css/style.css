@@ -395,7 +395,9 @@ text-align: center; border-left:8px solid #f2f2f2; }
 .content  .create-class-detail ul li { line-height:37px; background:#fff; margin-bottom:4px; display:block; padding:0 15px; font-size:16px; color:#5D5D5D;font-family: 'droid_sansregular';}
 .content  .create-class-detail ul li span { width:20px; text-align:center; padding-right:0px !important; margin-right:120px !important;}
 .content  .create-class-detail ul li label { margin:0px; color:#5d5d5d; font-size:16px;}
-.content  .create-class-detail ul li input[type="text"] { line-height:20px; color:#5c5c5c; padding:0 5px; font-size:16px; font-family: 'droid_sansregular';border:0px none;outline:none; width:78%;}
+.content  .create-class-detail ul li input[type="text"] { line-height:20px; color:#5c5c5c; padding:0 5px; font-size:16px; font-family: 'droid_sansregular';border:0px none;outline:none; width:68%;}
+#class_email_modify { line-height:20px; color:#5c5c5c; padding:0 5px; font-size:16px; font-family: 'droid_sansregular';border:0px none;outline:none; width:78%; !important}
+
 .content  .create-class-detail ul li select ,input[type="password"]{ line-height:20px; color:#5c5c5c; padding:0 5px; font-size:16px; font-family: 'droid_sansregular';border:0px none;outline:none; width:68%;}
 .content  .create-class-detail ul li select  { width:83.5%;-moz-appearance:none;-webkit-appearance:none;-o-apperance:nonw;-ms-appearance:none; background:url(../images/select-arrow.png) 100% center no-repeat;}
 .content  .create-class-detail .all-member-detail { margin-top:36px;}
