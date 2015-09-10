@@ -114,7 +114,7 @@ $(document).ready(function() {
 	
 	$(".content #CreateUserModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_user_creation") );
-		if (localStorage.getItem("errors_in_user_edition") == "false" || localStorage.getItem("errors_in_user_edition") == false ){
+		if (localStorage.getItem("errors_in_user_creation") == "false" || localStorage.getItem("errors_in_user_creation") == false ){
 
 
 			$("#max_user_list").trigger( "click" );
