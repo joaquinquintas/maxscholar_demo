@@ -99,7 +99,7 @@ $(document).ready(function() {
 	// STUDENT - LIST 
 	$("#student_tutor_list").click(function(){
 		$("#tutor_list_students").css('display', 'none');
-		pk = localStorage.getItem("pk");
+		pk = 1;
 		$("#mystudent .allstudent-detail h2").html("Loading ...");
 		$.ajax({type: "GET",  url: getStudentTutorList+pk}).
 			done(function(data) {
