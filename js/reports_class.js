@@ -24,14 +24,14 @@ $(document).ready(function() {
 		$('.class-tab-detail').css('display','none');
 		$("#report_class_selector").html("");
 		$("#individual .individual-tab-detail").css("display", "none");
-		school_pk = localStorage.getItem("school_pk");
-		toSend = {school_id:school_pk};
 		
-		$.ajax({type: "GET",  url: allClasses, data:toSend}).
+		$.ajax({type: "GET",  url: allClasses}).
         fail(function(resp){
             console.log('bad credentials.')
         }).
         done(function(data){
+        	data = JSON.parse(data);
+        	
         	$.each( data, function( key, val ) {
     	    	var o = new Option(val.name , val.pk);
     			$("#report_class_selector").append(o);
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
 		class_pk = $("#report_class_selector").val();
 		
-		class_password = $("#class_password").val();
+		class_password = "";
 		
 		$.ajax({type: "POST",  url: checkClassPassword, data: { password: class_password, pk:class_pk } }).
         fail(function(resp){
@@ -141,6 +141,8 @@ $(document).ready(function() {
             $( "#class_password" ).select();
         })
         .done(function(resp){
+        	resp = JSON.parse(resp);
+        	
         	$('.class-tab-detail').css('display','none');
         	$('.reports-detail').css('display','none');
         	$('.content #class-detail-message').css('display','block');

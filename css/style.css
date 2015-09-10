@@ -112,7 +112,7 @@ header .header-right ul li a.logout { padding-top:5px; display:inline-block;}
 .content .tab-inner-right-detail .district-detail span { font-size:24px; color:#fff;font-family: 'droid_sansbold'; line-height:28px;}
 .content .tab-inner-right-detail .class-tab-detail { display:none;}
 .content .tab-inner-right-detail .class-tab-detail label { font-size:15px; line-height:20px; color:#5D5D5D; width:30%; display:inline-block; text-align:right; padding:0 10px; box-sizing:border-box;}
-.content .tab-inner-right-detail .class-tab-detail select { height:32px; border:1px solid #b3b3b3; width:68%; padding:0 10px; box-sizing:border-box; font-size:15px; font-weight:bold; color:#5c5c5c; -moz-appearance:none;-webkit-appearance:none;-ms-appearance:none; -o-appearance:none; background:url(../images/select-arrow.png) 96% center no-repeat #fff; outline:none;}
+.content .tab-inner-right-detail .class-tab-detail select { height:32px; border:1px solid #b3b3b3; width:68%; padding:0 10px; box-sizing:border-box; font-size:14px; font-weight:bold; color:#5c5c5c; -moz-appearance:none;-webkit-appearance:none;-ms-appearance:none; -o-appearance:none; background:url(../images/select-arrow.png) 96% center no-repeat #fff; outline:none;}
 .content .tab-inner-right-detail .class-tab-detail select.month { width:27%;}
 .content .tab-inner-right-detail .class-tab-detail select.day{ width:15%; }
 .content .tab-inner-right-detail .class-tab-detail select.year{width:25%;}
