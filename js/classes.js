@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	localStorage.setItem("errors_in_class_edition", null);
+	localStorage.setItem("errors_in_class_creation", null);
 	
 	$('.add-student ul').slimScroll({
         height: '420px'
@@ -108,7 +110,7 @@ $(document).ready(function() {
 		$.ajax({type: "GET",  url: getStudentList}).
         
         done(function(resp){
-        	resp = JSON.parse(resp)
+        	resp = JSON.parse(resp);
         	$('#createclass .message').css('display', 'none');
         	$('.create-class-detail').css('display', 'block');
         	//Use the clase response Obj
@@ -129,10 +131,10 @@ $(document).ready(function() {
 		$( "#student-add-class-list-created" ).html( "Searching ..." );
 		var pk = localStorage.getItem("selected_clase");
 		var student_name = $( "#search-student-create" ).val();
-		school_pk = localStorage.getItem("school_pk");
-		$.ajax({type: "GET",  url: getStudentSearch+"?username="+student_name+"&school_id="+school_pk }).
+		$.ajax({type: "GET",  url: getStudentSearch+"?username="+student_name }).
         
         done(function(resp){
+        	resp = JSON.parse(resp);
         	if (resp.length > 0 ){
         		//Use the clase response Obj
             	var students = [];
@@ -228,7 +230,7 @@ $(document).ready(function() {
 	
 	$(".content #savedModifiedClassModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_class_edition") );
-		if (localStorage.getItem("errors_in_class_edition") == "false" ){
+		if (localStorage.getItem("errors_in_class_edition") == "false" || localStorage.getItem("errors_in_class_edition")=="null"){
 
 			//$(".all-classes-tab-title").addClass("active");
 			//$(".createclass-tab-title").removeClass("active");
@@ -242,7 +244,7 @@ $(document).ready(function() {
 	
 	$(".content #savedCreateClassModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_class_creation") );
-		if (localStorage.getItem("errors_in_class_creation") == "false"){
+		if (localStorage.getItem("errors_in_class_creation") == "false" || localStorage.getItem("errors_in_class_creation")=="null"){
 		
 			//$(".all-classes-tab-title").addClass("active");
 			//$(".createclass-tab-title").removeClass("active");
@@ -354,6 +356,7 @@ $(document).ready(function() {
 		var password = $('#clase_password').val();
 		$( "#error_clase_password" ).html("");
 		var pk = this.dataset.clasePk
+		localStorage.setItem("selected_clase", pk);
 		$.ajax({type: "POST",  url: checkClassPassword, data: { password: password, pk:pk } }).
         fail(function(resp){
             console.log('Bad password')
@@ -485,11 +488,11 @@ $(document).ready(function() {
 		$( "#student-add-class-list" ).html( "Searching ..." );
 		var pk = localStorage.getItem("selected_clase");
 		var student_name = $( "#search-student-modify" ).val();
-		school_pk = localStorage.getItem("school_pk");
 		toSend = {school_id:school_pk};
-		$.ajax({type: "GET",  url: getStudentSearchFromSchool+"?clase="+pk+"&username="+student_name+"&school_id="+school_pk}).
+		$.ajax({type: "GET",  url: getStudentSearchFromSchool+"?clase="+pk+"&username="+student_name}).
         
         done(function(resp){
+        	resp = JSON.parse(resp);
         	if (resp.length > 0 ){
         		//Use the clase response Obj
             	var students = [];

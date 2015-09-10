@@ -114,7 +114,7 @@ $(document).ready(function() {
 	
 	$(".content #CreateUserModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_user_creation") );
-		if (localStorage.getItem("errors_in_user_edition") == "false" ){
+		if (localStorage.getItem("errors_in_user_edition") == "false" || localStorage.getItem("errors_in_user_edition") == false ){
 
 
 			$("#max_user_list").trigger( "click" );
@@ -125,7 +125,7 @@ $(document).ready(function() {
 	
 	$(".content #SaveEditUserModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_user_edition") );
-		if (localStorage.getItem("errors_in_user_edition") == "false" ){
+		if (localStorage.getItem("errors_in_user_edition") == "false" || localStorage.getItem("errors_in_user_edition") == false ){
 
 
 			$("#max_user_list").trigger( "click" );
@@ -337,10 +337,9 @@ $(document).ready(function() {
 	$('#max_user_list').click(function(){
 		$('#user-list').html("");
 		$('#allusers h2').html("Loading ...");
-		school_pk = localStorage.getItem("school_pk");
-		toSend = {school_id:school_pk};
-		$.ajax({type: "GET",  url: getStudentSearch, data:toSend}).
+		$.ajax({type: "GET",  url: getStudentSearch}).
 			done(function(data) {
+				data = JSON.parse(data);
 				count = 1;
 				$.each( data, function( key, val ) {
 					if (val.first_name =="" && val.last_name ==""){

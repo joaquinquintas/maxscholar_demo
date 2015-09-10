@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('#tutor_my_profile').click(function(){
 		$('#my_profile').html("Loading ...");
 		$('#my_profile_info').css('display', 'none');
-		pk = localStorage.getItem("pk");
+		pk = 1;
 		$.ajax({type: "GET",  url: getTutorDetail+pk}).
 			done(function(data) {
 				console.log(data);
@@ -78,7 +78,7 @@ $(document).ready(function() {
 								home_phone:home_phone,
 								work_phone:work_phone};
 			
-			pk = localStorage.getItem("pk");
+			pk = 1;
 			$.ajax({type: "PUT",  url: getTutorDetail+pk, data: JSON.stringify(to_send_data) }).
 	        fail(function(resp){
 				$("#tutorProfileSave .modal-body span").html("Internal Error, Please try again later.");
