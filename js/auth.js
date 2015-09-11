@@ -103,6 +103,7 @@ $("#selected_dashboard_school").css('display','none');
 $(".welcome-notice h3").html("Welcome, Demo User!");
 var intro = introJs();
 intro.setOptions({
+	exitOnOverlayClick: false,
   steps: [
     {
       element: '#step1',
