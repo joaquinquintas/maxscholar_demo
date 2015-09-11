@@ -44,10 +44,9 @@ $(document).ready(function() {
     	$('.individual-tab-detail').css('display','none');
 		$("#report_individual_selector").html("");
 		$("#individual .individual-tab-detail").css("display", "none");
-		school_pk = localStorage.getItem("school_pk");
-		toSend = {school_id:school_pk};
-		$.ajax({type: "GET",  url: getStudentList, data:toSend }).
+		$.ajax({type: "GET",  url: getStudentList}).
 	    done(function(resp){
+	    	resp = JSON.parse(resp);
 	    	$.each( resp, function( key, val ) {
 	    		if (val.first_name == "" && val.last_name == ""){
 	    			name = val.username;
