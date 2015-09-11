@@ -870,3 +870,4 @@ header .header-right ul li { float:none; display:inline-block;}
     padding-bottom: 20px !important;
 	
 }
+#add-subpoint, #add-point {display:none !important}
