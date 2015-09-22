@@ -1,4 +1,21 @@
 $(document).ready(function() {
+	
+	var getUrlParameter = function getUrlParameter(sParam) {
+	    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+	        sURLVariables = sPageURL.split('&'),
+	        sParameterName,
+	        i;
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+
+	        if (sParameterName[0] === sParam) {
+	            return sParameterName[1] === undefined ? true : sParameterName[1];
+	        }
+	    }
+	};
+	
+	
 	csrftoken = Cookies.get('csrftoken');
 	sessionId = Cookies.get('maxscholarSessionId');
 
@@ -29,6 +46,8 @@ $(document).ready(function() {
 	$.ajax({type: "POST",  url: login}).
     done(function(resp){
     	//Set variables in the session for the demo user
+    	
+    	
     	});
 
 	 
@@ -128,7 +147,18 @@ intro.setOptions({
   ]
 	
 });
-intro.start();
+var show_report = getUrlParameter("show_report");
+console.log(show_report);
+
+if (show_report == "true"){
+	//Show 
+	$(".reports").trigger( "click" );
+	$("#class_report").trigger( "click" );
+}else{
+	intro.start();
+}
+
+
 
 
 
