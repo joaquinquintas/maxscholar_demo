@@ -43,14 +43,7 @@ $(document).ready(function() {
 		  }
 		});
 
-	$.ajax({type: "POST",  url: login}).
-    done(function(resp){
-    	//Set variables in the session for the demo user
-    	
-    	
-    	});
-
-	 
+ 
  	$.ajax({type: "GET",  url: getStudentLevels}).
 	done(function(response){
 		
@@ -150,13 +143,26 @@ intro.setOptions({
 var show_report = getUrlParameter("show_report");
 console.log(show_report);
 
-if (show_report == "true"){
-	//Show 
-	$(".reports").trigger( "click" );
-	$("#class_report").trigger( "click" );
-}else{
-	intro.start();
-}
+$.ajax({type: "POST",  url: login}).
+done(function(resp){
+	//Set variables in the session for the demo user
+	if (show_report == "true"){
+		//Show 
+		$('.reports-tab-title').removeClass('active');
+		 $('#reports').removeClass('active');
+		 $('.individual-title').removeClass('active');
+		 $('.content .welcome-notice ').css('opacity','1');
+		 $('#class').removeClass('active');
+		 $('.content ul.print-button ').css('display','none');
+		$(".reports").trigger( "click" );
+		$("#class_report").trigger( "click" );
+	}else{
+		intro.start();
+	}
+	
+	});
+
+
 
 
 
