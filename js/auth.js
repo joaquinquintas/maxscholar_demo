@@ -108,38 +108,54 @@ $.ajax({type: "GET",  url: getUserType}).
 	
 	
 
-	
+function StartHelp(){
+	$(".welcome-notice h3").html("Welcome, Demo User!");
+	var intro = introJs();
+	intro.setOptions({
+		exitOnOverlayClick: false,
+	  steps: [
+	    {
+	      element: '#step1',
+	      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span> This is a DEMO Session you can safely play with it, all the data you enter will be lost after you leave the page.</span>"
+	     } ,
+		   {
+	      element: '#step2',
+	      intro: "<span>Choose an icon to explore these features:</span><span><strong>Reports: </strong>check your student's data and progress.</span><span><strong>Classes: </strong>create and manage your groups or classes.</span><span><strong>Users: </strong>create and manage student accounts.</span><span><strong>Licenses: </strong>check school-wide license count. </span><span><strong>Materials: </strong>download teaching resources and materials.  </span><span><strong>Tutors: </strong>manage your tutoring sessions and progress.</span>"
+	     } ,
+		   {
+	      element: '#step3',
+	      intro: "<span>Choose a tab to see student progress in each specific program.</span><span>Scroll down to see additional information and graphs.</span>"
+	     } ,
+		    {
+	      element: '#step4',
+	      intro: "<span>Click this button if you want to see the student site.</span>"
+	     },
+		    {
+	      element: '#step5',
+	      intro: "<span>Use these buttons to download or print sections</span><span>of the report or, its entirety</span>"
+	     } 
+	  ]
+		
+	});
+	intro.start();
+	$(".introjs-tooltipbuttons").on('click', '.introjs-skipbutton', function(){
+		console.log("SKIP");
+		  $('.reports-tab-title').removeClass('active');
+			 $('#reports').removeClass('active');
+			 $('.individual-title').removeClass('active');
+			 $('.content .welcome-notice ').css('opacity','1');
+			 $('#class').removeClass('active');
+			 $('.content ul.print-button ').css('display','none');
+			 $('#submenu').css('display','block');
+			 $('#selected_dashboard_school').css('display','none');
+			 $('#menu_items').css('display','block');
+			 $(".welcome-notice-outer").show();
+	});
+}
 
 	
 $("#selected_dashboard_school").css('display','none');
-$(".welcome-notice h3").html("Welcome, Demo User!");
-var intro = introJs();
-intro.setOptions({
-	exitOnOverlayClick: false,
-  steps: [
-    {
-      element: '#step1',
-      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span> This is a DEMO Session you can safely play with it, all the data you enter will be lost after you leave the page.</span>"
-     } ,
-	   {
-      element: '#step2',
-      intro: "<span>Choose an icon to explore these features:</span><span><strong>Reports: </strong>check your student's data and progress.</span><span><strong>Classes: </strong>create and manage your groups or classes.</span><span><strong>Users: </strong>create and manage student accounts.</span><span><strong>Licenses: </strong>check school-wide license count. </span><span><strong>Materials: </strong>download teaching resources and materials.  </span><span><strong>Tutors: </strong>manage your tutoring sessions and progress.</span>"
-     } ,
-	   {
-      element: '#step3',
-      intro: "<span>Choose a tab to see student progress in each specific program.</span><span>Scroll down to see additional information and graphs.</span>"
-     } ,
-	    {
-      element: '#step4',
-      intro: "<span>Click this button if you want to see the student site.</span>"
-     },
-	    {
-      element: '#step5',
-      intro: "<span>Use these buttons to download or print sections</span><span>of the report or, its entirety</span>"
-     } 
-  ]
-	
-});
+
 var show_report = getUrlParameter("show_report");
 console.log(show_report);
 
@@ -157,7 +173,7 @@ done(function(resp){
 		$(".reports").trigger( "click" );
 		$("#class_report").trigger( "click" );
 	}else{
-		intro.start();
+		StartHelp();
 	}
 	
 	});
@@ -167,16 +183,6 @@ done(function(resp){
 
 
 
-
-
-  $('.introjs-skipbutton') .click(function() {
-	 $('.reports-tab-title').removeClass('active');
-	 $('#reports').removeClass('active');
-	 $('.individual-title').removeClass('active');
-	 $('.content .welcome-notice ').css('opacity','1');
-	 $('#class').removeClass('active');
-	 $('.content ul.print-button ').css('display','none');
-	  });
 	
 	$("#help_icon").click(function(e){
 		e.preventDefault();
@@ -191,17 +197,8 @@ done(function(resp){
 		$.ajax({type: "POST", url: logout}).
 	    done(function(resp){
 	        console.log(' loggued out.')
-	        $('.reports-tab-title').removeClass('active');
-			 $('#reports').removeClass('active');
-			 $('.individual-title').removeClass('active');
-			 $('.content .welcome-notice ').css('opacity','1');
-			 $('#class').removeClass('active');
-			 $('.content ul.print-button ').css('display','none');
-			 $('#submenu').css('display','block');
-			 $('#selected_dashboard_school').css('display','none');
-			 $('#menu_items').css('display','block');
-			 $(".welcome-notice-outer").show();
-			 location.reload();
+	        
+			 window.location = window.location.href.split("?")[0];
 	    })
 	    
 		
