@@ -116,7 +116,7 @@ function StartHelp(){
 	  steps: [
 	    {
 	      element: '#step1',
-	      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span> This is a DEMO Session you can safely play with it, all the data you enter will be lost after you leave the page.</span>"
+	      intro: "<b>Hello Demo User</b><span>Welcome to MaxReports!</span><span> This is a DEMO Session you can safely play with, all the data you enter will be lost after you leave the page.</span>"
 	     } ,
 		   {
 	      element: '#step2',
