@@ -8,9 +8,17 @@ $(document).ready(function() {
 		$( "#repassword-create-user" ).val("");
 		$( "#level-create-user" ).val("no");
 		$( "#type-create-user" ).val("no");
+		
+		$( "#first-name-create-parent" ).val("");
+		$( "#last-name-create-parent" ).val("");
+		$( "#email-create-parent" ).val("");
+		$('.create-user-outer h2#parent_title').html("Parent Information");
+		
+		$( "#level-phonics-create-user" ).val("no");
+		
 	});
 	// CREATE USER   ------------------
-	$("#craeteUserConfirmation").click(function(e){
+	$("#craeteUserConfirmation1").click(function(e){
 		e.preventDefault();
 		console.log("Click Create User");
 		var errors = false;
@@ -112,6 +120,153 @@ $(document).ready(function() {
 		
 	});
 	
+	// CREATE USER   ------------------
+	$("#craeteUserConfirmation").click(function(e){
+		e.preventDefault();
+		console.log("Click Create User");
+		var errors = false;
+		var errors_list = []
+		
+		
+		
+		
+		var first_name = $( "#fist-name-create-user" ).val();
+		if (first_name == ""){
+			errors_list.push( "<li>First Name is required</li>" );
+			errors = true;
+		}
+		var last_name = $( "#last-name-create-user" ).val();
+		if (last_name == ""){
+			errors_list.push( "<li>Last Name is required</li>" );
+			errors = true;
+		}
+		var user_name = $( "#user-name-create-user" ).val();
+		var user_name = user_name.split(' ').join('');
+		
+		
+		var password = $( "#password-create-user" ).val();
+		var repassword = $( "#repassword-create-user" ).val();
+		var save_password = false;
+		if(password.length == 0){
+			errors_list.push( "<li>Password is required</li>");
+		}else{
+			if(password != repassword){
+				errors_list.push( "<li>Password mismatch</li>");
+				errors = true;
+			}
+		}
+		
+		var user_type = $( "#type-create-user" ).val();
+		var pre_test = $( "#pretest-create-user" ).val();
+		var level = $( "#level-create-user" ).val();
+		var level_phonics = $( "#level-phonics-create-user" ).val();
+		var save_level = level != "no"
+		if (level == "no"){
+			errors_list.push( "<li>Reading Level is required</li>" );
+			errors = true;
+		}
+		var save_phonics_level = level_phonics != "no"
+		var save_user_type = user_type != "no"
+		if(pre_test=="Yes"){
+			pre_test = true;
+		}else{
+			pre_test= false;
+		}
+		
+		
+		var reading_hl = $( "#reading_hl-create-user" ).val();
+		var pre_test_phonics = $( "#pretest_phonics-create-user" ).val();
+		
+
+
+		if(reading_hl=="Yes"){
+			reading_hl = true;
+		}else{
+			reading_hl= false;
+		}
+		if(pre_test_phonics=="Yes"){
+			pre_test_phonics = true;
+		}else{
+			pre_test_phonics= false;
+		}
+		
+		if (user_name == ""){
+			errors_list.push( "<li>Username is required</li>" );
+			errors = true;
+		}
+		
+		$.ajax({type: "GET", url: validateUsername+"?username="+user_name}).
+    	fail(function(response){
+    		errors_list.push( "<li>Username already taken</li>" );
+			errors = true;
+    	}).complete(function(response){
+    		
+    		if (errors){
+    			var message = "<p>Errors:</p><br/><ul>"+errors_list.join( "" ) +"</ul>"
+    			$("#CreateUserModal .modal-body span").html(message);
+    			localStorage.setItem("errors_in_user_creation", "true");
+    			$('#CreateUserModal').modal('show');
+    			
+    		}else{
+    			localStorage.setItem("errors_in_user_creation", "false");
+    			var to_send_data = { first_name: first_name, last_name:last_name, username:user_name, pre_test:pre_test,
+    					do_reading_hl:reading_hl, do_phonics_pretest:pre_test_phonics};
+    				to_send_data.password = password;
+    				
+    			if(save_level == true){
+    				to_send_data.level = level;
+    			}
+    			if (save_phonics_level == true){
+    				to_send_data.phonics_level = level_phonics;
+    			}
+    			if(save_user_type == true){
+    				to_send_data.user_type = user_type;
+    			}
+    			school_pk = localStorage.getItem("school_pk");
+    			
+    			to_send_data.school_id = school_pk;
+    			
+    			$.ajax({type: "POST",  url: getStudentList, data: JSON.stringify(to_send_data) }).
+    	        
+    	        done(function(resp){
+    	        	resp = JSON.parse(resp);
+    	        	var parent_first_name = $( "#first-name-create-parent" ).val();
+    	    		var parent_last_name = $( "#last-name-create-parent" ).val();
+    	    		var parent_email= $( "#email-create-parent" ).val();
+    	    		
+    	    		to_send_data = {parent_id:null, parent_first_name:parent_first_name,
+    	    				parent_last_name:parent_last_name, parent_email:parent_email,
+    	    				student_id:resp.pk}
+    	    		
+    	    		console.log(to_send_data);
+    	        	$.ajax({type: "POST",  url: parentCreate, data: JSON.stringify(to_send_data) }).
+        	        fail(function(resp){
+        				$("#CreateUserModal .modal-body span").html("Internal Error, Please try again later.");
+        	        	$('#CreateUserModal').modal('show');
+        	            
+        	        }).
+        	        done(function(resp){
+        	        	console.log('Good saving')
+        				$("#CreateUserModal .modal-body span").html("The user has been created successfully");
+        	        	$('#CreateUserModal').modal('show');
+        	        	
+        	        });
+    	        	
+    	        }).fail(function(response){
+    	        	$("#CreateUserModal .modal-body span").html('There are no more licenses to assign. Please contact us for more information.');
+    	        	$('#CreateUserModal').modal('show');
+    	    	});
+    		}
+    		
+    		
+    	});
+
+		
+		
+		
+		
+	});
+	
 	$(".content #CreateUserModal .modal-content .modal-footer .close-btn").click(function(){
 		console.log(localStorage.getItem("errors_in_user_creation") );
 		if (localStorage.getItem("errors_in_user_creation") == "false" || localStorage.getItem("errors_in_user_creation") == false ){
@@ -144,7 +299,8 @@ $(document).ready(function() {
 		$('.edit-user-outer ul').css('display','none');
 		$('#editConfirmation').css('display','none');
 		
-		$('.edit-user-outer h2').html("Loading ...");
+		$('.edit-user-outer h2').html("");
+		$('.edit-user-outer h2.loading').html("Loading ...");
 		
 		var user_selected = this.dataset.userEditPk;
 		localStorage.setItem("user_selected_to_edit", user_selected);
@@ -161,32 +317,84 @@ $(document).ready(function() {
         			$(this).attr("selected","selected");
         		}
         	});
-        	$.each($("#type-edit-user").children(), function(i){
-        		if ($(this).val() == data.type.pk){
+        	$.each($("#level-phonics-edit-user").children(), function(i){
+        		if ($(this).val() == data.phonics_level.pk){
         			$(this).attr("selected","selected");
         		}
         	});
+
         	
         	if(data.level.pk == "no"){
     			$("#level-edit-user #no").attr("selected","selected");
 			}
-    		
-        	if(data.type.pk == "no"){
-    			$("#type-edit-use #no").attr("selected","selected");
+        	
+        	if(data.phonics_level.pk == "no"){
+    			$("#level-phonics-edit-user #no").attr("selected","selected");
 			}
+    		
         	
     		$("#fist-name-edit-user").val(data.first_name);
         	$("#last-name-edit-user").val(data.last_name);
         	$("#user-name-edit-user").val(data.username);
+        	$("#id-edit-student").val(user_selected);
+        	
+        	console.log(data);
         	if(data.do_pretest == false){
+        		
         		$("#pretest-edit-user #no").attr("selected","selected");
         	}
         	else{
         		$("#pretest-edit-user #yes").attr("selected","selected");
         	}
         	
+        	if(data.do_phonics_pretest == false){
+        		$("#pretest_phonics-edit-user #no").attr("selected","selected");
+        	}
+        	else{
+        		$("#pretest_phonics-edit-user #yes").attr("selected","selected");
+        	}
+
+        	if(data.phonics_pretest_done == true){
+        		$("#pretest_phonics-edit-user").attr("disabled","disabled").parent().css("opacity", "0.3");
+        	}
         	
-    		$('.edit-user-outer h2').html("");
+            if(data.reading_interim == false) {
+        		$("#interim-edit-user #no").attr("selected","selected");
+            } else {
+        		$("#interim-edit-user #yes").attr("selected","selected");
+            }
+
+            if (data.reading_pretest_done == false) {
+                $("#interim-edit-user").attr("disabled","disabled").parent().css("opacity", "0.3");
+            } else {
+                $("#interim-edit-user").attr("enabled","enabled");
+                $("#pretest-edit-user").attr("disabled","disabled").parent().css("opacity", "0.3");
+            }
+            
+            if (data.reading_interim_done == true){
+            	$("#interim-edit-user").attr("disabled","disabled").parent().css("opacity", "0.3");
+            }
+            
+            
+            
+        	if(data.do_reading_hl == false){
+        		$("#reading_hl-edit-user #no").attr("selected","selected");
+        	}
+        	else{
+        		$("#reading_hl-edit-user #yes").attr("selected","selected");
+        	}
+        	
+        	$( "#password-edit-user" ).val("********");
+    		$( "#repassword-edit-user" ).val("********");
+    		$('.edit-user-outer h2.loading').html("");
+    		
+    		$("#first-name-edit-parent").val(data.parent.first_name);
+        	$("#last-name-edit-parent").val(data.parent.last_name);
+        	$("#email-edit-parent").val(data.parent.email);
+        	$("#id-parent").val(data.parent.id);
+    		
+        	$('.edit-user-outer h2').html("");
+    		$('.edit-user-outer h2#parent_title').html("Parent Information");
         	$('.edit-user-outer ul').css('display','block');
         	$('#editConfirmation').css('display','block');
     
@@ -199,6 +407,7 @@ $(document).ready(function() {
 		
 	});
 	
+
 	
 	$("#editConfirmation").click(function(e){
 		var select_user = localStorage.getItem("user_selected_to_edit");
@@ -232,14 +441,46 @@ $(document).ready(function() {
 		}
 		
 		var user_type = $( "#type-edit-user" ).val();
+		
 		var pre_test = $( "#pretest-edit-user" ).val();
+		var reading_hl = $( "#reading_hl-edit-user" ).val();
+		var reading_interim = $( "#interim-edit-user" ).val();
+		var pre_test_phonics = $( "#pretest_phonics-edit-user" ).val();
+		
 		var level = $( "#level-edit-user" ).val();
 		var save_level = level != "no"
+		if (level == "no"){
+			errors_list.push( "<li>Reading Level is required</li>" );
+			errors = true;
+		}
+		var phonics_level = $( "#level-phonics-edit-user" ).val();
+		var save_phonics_level = phonics_level != "no"
 		var save_user_type = user_type != "no"
-		if(pre_test=="yes"){
+		
+		console.log(pre_test);
+		console.log(reading_hl);
+		console.log(pre_test_phonics);
+		
+		if(pre_test=="Yes"){
 			pre_test = true;
 		}else{
 			pre_test= false;
+		}
+		if(reading_hl=="Yes"){
+			reading_hl = true;
+		}else{
+			reading_hl= false;
+		}
+		if(reading_interim=="Yes"){
+			reading_interim = true;
+		}else{
+			reading_interim= false;
+		}
+		
+		if(pre_test_phonics=="Yes"){
+			pre_test_phonics = true;
+		}else{
+			pre_test_phonics= false;
 		}
 		
 		var user_name = $( "#user-name-edit-user" ).val();
@@ -263,12 +504,16 @@ $(document).ready(function() {
     			
     		}else{
     			localStorage.setItem("errors_in_user_edition", "false");
-    			var to_send_data = { first_name: first_name, last_name:last_name, username:user_name, pre_test:pre_test};
+    			var to_send_data = { first_name: first_name, last_name:last_name, username:user_name, 
+    					pre_test:pre_test, reading_interim:reading_interim,do_phonics_pretest:pre_test_phonics, do_reading_hl:reading_hl};
     			if(save_password == true){
     				to_send_data.password = password;
     			}
     			if(save_level == true){
     				to_send_data.level = level;
+    			}
+    			if(save_phonics_level == true){
+    				to_send_data.phonics_level = phonics_level;
     			}
     			if(save_user_type == true){
     				to_send_data.user_type = user_type;
@@ -282,24 +527,35 @@ $(document).ready(function() {
     	            
     	        }).
     	        done(function(resp){
-    	        	console.log('Good saving')
-    				$("#SaveEditUserModal .modal-body span").html("The user has been modified successfully");
-    	        	$('#SaveEditUserModal').modal('show');
+	    	        	var parent_first_name = $( "#first-name-edit-parent" ).val();
+	    	    		var parent_last_name = $( "#last-name-edit-parent" ).val();
+	    	    		var parent_email= $( "#email-edit-parent" ).val();
+	    	    		var parent_id = $( "#id-edit-parent" ).val();
+	    	    		var student_id = $( "#id-edit-student" ).val();
+	    	    		
+	    	    		to_send_data = {parent_id:parent_id, parent_first_name:parent_first_name,
+	    	    				parent_last_name:parent_last_name, parent_email:parent_email,
+	    	    				student_id:student_id}
+	    	    		
+	    	        	$.ajax({type: "POST",  url: parentCreate, data: JSON.stringify(to_send_data) }).
+	        	        fail(function(resp){
+	        				$("#SaveEditUserModal .modal-body span").html("Error Creating parent.");
+	        	        	$('#SaveEditUserModal').modal('show');
+	        	            
+	        	        }).
+	        	        done(function(resp){
+	        	        	console.log('Good saving')
+	        				$("#SaveEditUserModal .modal-body span").html("The user has been modified successfully");
+	        	        	$('#SaveEditUserModal').modal('show');
+	        	        	
+	        	        });
+    	        	
     	        	
     	        });
     		}
     	});
-
-		
-		
-		
-		
-		
-		
-		
+			
 	});
-	
-
 	// END EDIT USER ------------------
 	
 	$('#user-list').on('click', '#report-user-action',  function(e) {

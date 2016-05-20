@@ -70,7 +70,7 @@
                 <li role="presentation" class="user-tab-title"><a href="#users" aria-controls="users" role="tab" data-toggle="tab" class="users">users</a></li>
                 <li role="presentation" class="license-tab-title"><a href="#license" aria-controls="license" role="tab" data-toggle="tab" class="license">licenses</a></li>
                 <li role="presentation" class="material-tab-title"><a href="#material" aria-controls="material" role="tab" data-toggle="tab" class="material"> materials</a></li>
-                <li role="presentation" class="tutors-tab-title"><a href="#tutors" aria-controls="tutors" role="tab" data-toggle="tab" class="tutors">tutors</a></li>
+                <!-- li role="presentation" class="tutors-tab-title"><a href="#tutors" aria-controls="tutors" role="tab" data-toggle="tab" class="tutors">tutors</a></li -->
               </ul>
               <ul class="print-button" id="step5"  >
               <!--	<div class="search-filed-top">
@@ -617,10 +617,10 @@
                             <div id="report_individual" class="indvidual-detail-left">
                               <label>Student name : <span id="invidual_report_user_name"></span></label>
                               <label>Username : <span id="invidual_report_user_username"></span></label>
-                              <label>Assigned level : <span id="invidual_report_user_level"></span></label>
-                              <label>Student type : <span id="invidual_report_user_type"></span></label>
+                              <label>Reading level: <span id="invidual_report_user_level"></span></label>
+                              <!-- label>Student type : <span id="invidual_report_user_type"></span></label-->
                               <label>Dates : <span id="invidual_report_user_date"></span></label>
-                              <label>Pretest score : <span id="invidual_report_user_pretest"></span></label>
+                              <!-- label>Pretest score : <span id="invidual_report_user_pretest"></span></label-->
                               <label class="last-login">Last login : <span id="invidual_report_user_last_login"></span></label>
                                <input type="checkbox" name="check-3" value="6" checked="checked" class="lcs_check lcs_tt1 lcs_off"   autocomplete="off">
                               <div role="tabpanel"> 
@@ -734,6 +734,36 @@
                                               <!-- h2>LEVEL COMPLETION AVERAGE SCORE</h2>
                                               <div id="container18" style=" width:100%;  max-width:820px; height: 400px;box-sizing:border-box">
                                                </div-->
+                                               <h2>PRE-TEST: </h2>
+                                                <div class="book-completion-table">
+                                                
+                                              <table>
+                                                  <thead id="reading_ptest_head">
+                                                    <tr><td>STARTING LEVEL</td>
+                                                    <td>ENDING LEVEL</td>
+                                                    <td>SCORE</td>
+                                                    <td>DATE</td>
+                                                  </tr></thead>
+                                                  <tbody id="individual_reading_ptest"><tr><td>2</td><td>4</td><td>80</td><td>13, Jan 2016</td></tr></tbody>
+                                              </table>
+                                              </div>
+
+                                               <!-- INTERIM PRETEST -->
+                                              
+                                                <h2>INTERIM-TESTS: </h2>
+                                                <div class="book-completion-table">
+                                              <table>
+                                                  <thead id="reading_interim_head">
+                                                    <td>STARTING LEVEL</td>
+                                                    <td>ENDING LEVEL</td>
+                                                    <td>SCORE</td>
+                                                    <td>DATE</td>
+                                                  </thead>
+                                                  <tbody id="individual_reading_interim">
+                                                  <tr><td>1</td><td>2</td><td>75</td><td>12, Jan 2016</td></tr>
+                                                  </tbody>
+                                              </table>
+                                              </div>
                                               <div class="individual-graphs">
                                                 <h2>VOCAB GAMES : </h2>
                                                 <ul>
@@ -747,8 +777,11 @@
                                                 <div id="containerMaxVocab" style=" width:66%; max-width:235px;  height: 300px;box-sizing:border-box; float:left;"> </div>
 
                                                 </div>
-
+                                                 <!-- PRETEST -->
                                               </div>
+                                                
+
+                                              
                                             </div>
                                           </div>
                                           <div role="tabpanel" class="tab-pane" id="maxphonics-indivdual">
@@ -792,7 +825,36 @@
                                                 </div>
                                               </div>
                                             </div>
-
+										<!-- PRETEST -->
+                                            <div class="individual-report" id="phonics-pretest-data">
+                                              <div class="individual-graphs">
+                                                <h2>PRE-TEST: </h2>
+                                              <table>
+                                                  <thead id="reading_ptest_head">
+                                                    <tr><td>SCORE</td>
+                                                    <td style="width: 38%">LEVEL BEFORE PRE-TEST</td>
+                                                    <td>DATE</td>
+                                                  </tr></thead>
+                                                  <tbody id="individual_phonics_ptest">
+                                                  <tr>
+                                                  	<td id="score-phonics-pretest">50 %</td>
+                                                  	<td id="level-phonics-pretest">Level 11</td>
+                                                  	<td id="date-phonics-pretest">05/19/2016</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                              <table>
+                                                  <thead id="reading_ptest_head">
+                                                    <tr><td>SECTION</td>
+                                                    <td>INCORRECT</td>
+                      
+                                                  </tr></thead>
+                                                  <tbody id="individual_phonics_ptest_list">
+                                                  <tr><td>Section 1: Consonants</td><td>f, n, t, s, r, m, l, b, d, j, v, x, y, z, w, q</td></tr><tr><td>Section 2: Short Vowels</td><td>a, u, i, o, e</td></tr><tr><td>Section 3: Blends</td><td>cl, sl, fl, bl, gl, pl, gr, br, fr, dr, pr, cr, st, sk, tr, tw, sw, sn, sp, sc, sm, scr, spr, thr, str, spl</td></tr><tr><td>Section 4: Digraphs</td><td>sh, qu, th, ph, ch, wh, nk, ck, tch, ng, dge, mb, zz, ss</td></tr><tr><td>Section 5: Spelling</td><td>egg, apple, igloo, xray</td></tr></tbody>
+                                              </table>
+                                              </div>
+                                              </div>
+                                              
                                             <div class="individual-report">
                                               <div class="individual-graphs">
                                                 <h2>PHONICS GAMES : </h2>
@@ -1875,7 +1937,7 @@
                             <label>Teacher : <span id="clase_teacher"></span></label>
                             <!-- label>Class type : <span>ELL</span></label-->
                             <label>Email : <span id="clase_email"></span></label>
-                            <label>Password : <span id="clase_password_value"></span></label>
+                            <!-- label>Password : <span id="clase_password_value"></span></label-->
                             <label>Members : </label>
                             <div class="all-member-detail">
                               <ul id="clase_student_list">
@@ -1905,14 +1967,14 @@
                                 <label>Email : </label>
                                 <input type="text" id="class_email_create" value="" placeholder="Type here" >
                               </li>
-                              <li>
+                              <!-- li>
                                 <label>Password : </label>
                                 <input type="text" id="class_password_create" value="" placeholder="Type here" >
                               </li>
                               <li>
                                 <label>Retype password : </label>
                                 <input type="text" id="class_repassword_create" value="" placeholder="Type here" >
-                              </li>
+                              </li -->
                             </ul>
                              <div class="all-member-detail"> <span><b>Members : </b></span>
                               <div  class="choose-member create-member">
@@ -1968,7 +2030,7 @@
                                 
                                 <input type="text" id="class_email_modify" value="" placeholder="Type here" >
                               </li>
-                              <li>
+                              <!-- li>
                                 <label>Password : </label>
                                 
                                 <input type="text" id="class_password_modify" value="" placeholder="Type here" >
@@ -1976,7 +2038,7 @@
                               <li>
                                 <label>Retype password : </label>
                                 <input type="text" id="class_repassword_modify" value="" placeholder="Type here" >
-                              </li>
+                              </li-->
                             </ul>
                             <div class="all-member-detail"> <span><b>Members : </b></span>
                               <div  class="choose-member modify-member">
@@ -2076,7 +2138,7 @@
                             </div>
                           </div>
                           <div class="edit-user-outer">
-                          <h2>Loading ... </h2>
+                          <h2 class="loading"></h2>
                             <ul>
                               <li>
                                 <label>First Name : </label>
@@ -2087,20 +2149,49 @@
                                 <input id="last-name-edit-user" type="text" value="Doe" placeholder="Type here">
                               </li>
                               <li>
-                                <label>Assigned Level : </label>
+                                <label>Reading Level : </label>
                                 <select id="level-edit-user" style="width : 79%;">
                                 <option value="no" id="no">Select Level</option>
                                 </select>
                               </li>
-                              <li>
+                             <li>
+                                <label>Phonics Level : </label>
+                                
+                                <select id="level-phonics-edit-user" style="width : 79%;">
+                                <option value="no" id="no">Select Level</option>
+                                </select>
+                              </li>
+                              <li style="display:none">
                                 <label>Student Type : </label>
                                 <select id="type-edit-user" style="width:81%;">
                                 <option value="no" id="no">Select Type</option>
                                 </select>
                               </li>
                               <li>
-                                <label>Pretest : </label>
-                                <select id="pretest-edit-user" style="width:88%;">
+                                <label>Pretest Reading : </label>
+                                <select id="pretest-edit-user" style="width:78%;">
+                                  <option id="yes">Yes</option>
+                                  <option id="no">No</option>
+                                </select>
+                              </li>
+                              <li>
+                                <label>Interim Test Reading: </label>
+                                <select id="interim-edit-user" style="width:73%;">
+                                  <option id="yes">Yes</option>
+                                  <option id="no">No</option>
+                                </select>
+                              </li>
+
+                              <li>
+                                <label>Pretest Phonics : </label>
+                                <select id="pretest_phonics-edit-user" style="width:78%;">
+                                  <option id="yes">Yes</option>
+                                  <option id="no">No</option>
+                                </select>
+                              </li>
+                              <li>
+                                <label>Reading Highlighting : </label>
+                                <select id="reading_hl-edit-user" style="width:72%;">
                                   <option id="yes">Yes</option>
                                   <option id="no">No</option>
                                 </select>
@@ -2117,6 +2208,31 @@
                                 <label>Retype password : </label>
                                 <input id="repassword-edit-user" type="text" value="********" placeholder="Type here">
                               </li>
+                            </ul>
+                            
+                            <h2 id="parent_title" style="margin-top: 30px;font-size: 18px"></h2>
+                            
+                            <ul>
+                              <li>
+                                <label>First Name : </label>
+                                <input id="first-name-edit-parent" type="text" placeholder="Type here">
+                              </li>
+                              <li>
+                                <label>Last Name : </label>
+                                <input id="last-name-edit-parent" type="text"  placeholder="Type here">
+                              </li>
+
+                              <li>
+                                <label>Email : </label>
+                                <input id="email-edit-parent" type="text" placeholder="Type here">
+                                
+                              </li>
+                              <li>
+                                <input id="id-edit-parent" type="hidden">
+                                <input id="id-edit-student" type="hidden">
+                                
+                              </li>
+ 
                             </ul>
                             <div class="modal fade" id="SaveEditUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -2139,7 +2255,7 @@
                           <div class="create-class-detail">
                             <div class="choose-class">
                               <div class="edit-user-outer create-user-outer">
-                                <h2></h2>
+                                    <h2 class="loading"></h2>
                             <ul>
                               <li>
                                 <label>First Name : </label>
@@ -2150,20 +2266,40 @@
                                 <input id="last-name-create-user" type="text" placeholder="Type here">
                               </li>
                               <li>
-                                <label>Assigned Level : </label>
+                                <label>Reading Level : </label>
                                 <select id="level-create-user" style="width : 77%;">
                                 <option value="no" id="no">Select Level</option>
                                 </select>
                               </li>
                               <li>
+                                <label>Phonics Level : </label>
+                                <select id="level-phonics-create-user" style="width : 77%;">
+                                <option value="no" id="no">Select Level</option>
+                                </select>
+                              </li>
+                              <li style="display:none">
                                 <label>Student Type : </label>
                                 <select id="type-create-user" style="width:79%;">
                                 <option value="no" id="no">Select Type</option>
                                 </select>
                               </li>
                               <li>
-                                <label>Pretest : </label>
-                                <select id="pretest-create-user" style="width:87%;">
+                                <label>Pretest Reading: </label>
+                                <select id="pretest-create-user" style="width:76%;">
+                                  <option id="yes">Yes</option>
+                                  <option id="no">No</option>
+                                </select>
+                              </li>
+                              <li>
+                                <label>Pretest Phonics : </label>
+                                <select id="pretest_phonics-create-user" style="width:76%;">
+                                  <option id="yes">Yes</option>
+                                  <option id="no">No</option>
+                                </select>
+                              </li>
+                              <li>
+                                <label>Reading Highlighting : </label>
+                                <select id="reading_hl-create-user" style="width:69%;">
                                   <option id="yes">Yes</option>
                                   <option id="no">No</option>
                                 </select>
@@ -2180,6 +2316,26 @@
                                 <label>Retype password : </label>
                                 <input id="repassword-create-user" type="text" placeholder="Type here">
                               </li>
+                            </ul>
+                            <h2 id="parent_title" style="margin-top: 30px;font-size: 18px"></h2>
+                            
+                            <ul>
+                              <li>
+                                <label>First Name : </label>
+                                <input id="first-name-create-parent" type="text" placeholder="Type here">
+                              </li>
+                              <li>
+                                <label>Last Name : </label>
+                                <input id="last-name-create-parent" type="text"  placeholder="Type here">
+                              </li>
+
+                              <li>
+                                <label>Email : </label>
+                                <input id="email-create-parent" type="text" placeholder="Type here">
+                                
+                              </li>
+
+ 
                             </ul>
                             <div class="modal fade" id="CreateUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

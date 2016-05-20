@@ -22,6 +22,7 @@ $("#maxphonics_ind").click(function(){
 	});
 	
 	
+	
 	});
 
 

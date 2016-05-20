@@ -73,6 +73,38 @@ $(document).ready(function() {
 		
 		
 	});
+ 	$.ajax({type: "GET",  url: getStudentLevelsPhonics}).
+	done(function(response){
+		console.log(response);
+		$("#level-phonics-edit-user").html("");
+		$("#level-phonics-create-user").html("");
+		var o = new Option("Select Level" , "no");
+		o.setAttribute("id", "no");
+		$("#level-phonics-edit-user").append(o);
+		var o = new Option("Select Level" , "no");
+		o.setAttribute("id", "no");
+		o.setAttribute("selected", "selected");
+		$("#level-phonics-create-user").append(o);
+		
+		$.each(response, function (i, item) {
+			var o = new Option(item.title , item.pk);
+			/// jquerify the DOM object 'o' so we can use the html method
+			$(o).html(item.title);
+			
+			
+			$("#level-phonics-edit-user").append(o);
+			var o = new Option(item.title , item.pk);
+			/// jquerify the DOM object 'o' so we can use the html method
+			$(o).html(item.title);
+			$("#level-phonics-create-user").append(o);
+
+		});
+		
+		
+	}).fail(function(resp){
+		console.log(resp);
+	    
+	});;
 
 $.ajax({type: "GET",  url: getUserType}).
 	done(function(resp){
@@ -102,6 +134,9 @@ $.ajax({type: "GET",  url: getUserType}).
 	});
 
 
+}).fail(function(resp){
+	console.log(resp);
+    
 });
 
 	
